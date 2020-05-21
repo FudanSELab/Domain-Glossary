@@ -4,7 +4,7 @@
 class Option:
     WORKERS = 4
 
-    GENERAL_CORPUS = "general.corpus"
+    GENERAL_CORPUS = "output/general.corpus"
 
     EN_STOPWORDS = "resources/stopwords/en.txt"
     CODE_STOPWORDS = "resources/stopwords/code.txt"

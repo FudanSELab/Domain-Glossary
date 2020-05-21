@@ -5,6 +5,7 @@ from pathlib import Path
 import pickle
 from tqdm import tqdm
 
+from domainterm import Option
 from domainterm.types import Vocab, Sentence, Token
 from domainterm.common import SpacyNLP
 from domainterm.parsers import JavaDocCleaner, HTMLCleaner
@@ -15,7 +16,17 @@ from domainterm.util.stopwords import Stopwords
 if __name__ == "__main__":
     data_dir = Path(__file__).parent.parent / "data"
     output_dir = Path(__file__).parent.parent / "output"
-    htmls = DataLoader.html([str(data_dir / "python/html-data"), str(data_dir / "java/html-data")])
+
+    Option.GENERAL_CORPUS = str(output_dir / "general.corpus")
+    
+    # Load html data.
+    htmls = [
+        ("javadoc", "DL4J", "content"),
+        ("html", "pytorch", "content"),
+        ...
+    ]
+
+
 
     cleaner_factory = {
         "html": HTMLCleaner(),
@@ -56,5 +67,5 @@ if __name__ == "__main__":
         tokens = [Token(vocab, t.text, t.lemma_, pos=t.pos_, dep=t.dep_) for t in doc]
         sent.tokens = tokens
 
-    with Path(str(output_dir / "general.corpus")).open("wb") as f:
+    with Path(Option.GENERAL_CORPUS).open("wb") as f:
         pickle.dump((vocab, sentences), f)

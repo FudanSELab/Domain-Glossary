@@ -12,11 +12,21 @@ if __name__ == "__main__":
     data_dir = Path(__file__).parent.parent / "data"
     output_dir = Path(__file__).parent.parent / "output"
 
-    Option.GENERAL_CORPUS = "output/general.corpus"
+    # Configure general corpus
+    Option.GENERAL_CORPUS = str(output_dir / "general.corpus")
 
-    htmls = DataLoader.html([str(data_dir / "dl4j/html-data"), str(data_dir / "pytorch/html-data"), str(data_dir / "tf/html-data")])
-    codes = DataLoader.code([str(data_dir / "dl4j/source-code"), str(data_dir / "pytorch/source-code"), str(data_dir / "tf/source-code")])
-
+    # Load htmls and codes
+    htmls = [
+        ("javadoc", "DL4J", "content"),
+        ("html", "pytorch", "content"),
+        ...
+    ]
+    codes = [
+        ("java", "deeplearning4j/deeplearning4j-nn/.../LSTM.java", "content"),
+        ("python", "torch/nn/../rnn.py", "content"),
+        ...
+    ]
+    
     app = App()
     corpus = app.process(htmls, codes)
 

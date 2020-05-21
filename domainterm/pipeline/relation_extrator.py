@@ -52,11 +52,12 @@ class RelationExtrator(Pipe):
             rs = sent.find_spans(*terms, ignore_case=True)
             sent2concepts[sent] = {alias2concept[term] for term in rs.keys()}
     
-        def __fuzzy_match(np1, np2, threshold=0.5):
-            words1 = np1.split()
-            words2 = np2.split()
-            if self.lcsstr.normalized_similarity(words1, words2) >= threshold:
-                return True
+        def __fuzzy_match(np, concept, threshold=0.5):
+            words1 = np.split()
+            for alias in concept.aliases:
+                words2 = alias.split()
+                if self.lcsstr.normalized_similarity(words1, words2) >= threshold:
+                    return True
             return False
 
         relations = set()
@@ -146,16 +147,9 @@ class RelationExtrator(Pipe):
 
     def process(self, corpus:Corpus):
         concepts = list(corpus.concepts)
-        last = 0
         corpus.relations.update(self.extract_from_code(concepts, corpus.code_relations))
-        print("relations extracted by code: %d" % (len(corpus.relations) - last))
-        last = len(corpus.relations)
         corpus.relations.update(self.extract_by_pattern(corpus.sentences, concepts))
-        print("relations extracted by pattern: %d" % (len(corpus.relations) - last))
-        last = len(corpus.relations)
         corpus.relations.update(self.extract_by_affix(concepts))
-        print("relations extracted by affix: %d" % (len(corpus.relations) - last))
-        last = len(corpus.relations)
         corpus.relations.update(self.extract_by_similarity(concepts, corpus.sentences))
-        print("relations extracted by vector similarity: %d" % (len(corpus.relations) - last))
+        print("relations:", len(corpus.relations))
         return corpus

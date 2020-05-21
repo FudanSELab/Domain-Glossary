@@ -21,7 +21,9 @@ class TermRecognizer(Pipe):
         
     def __del__(self):
         if self.model_dir.startswith("tmp"):
-            shutil.rmtree(Path(self.model_dir).resolve())
+            tmp_dir = Path(self.model_dir)
+            if tmp_dir.exists():
+                shutil.rmtree(tmp_dir.resolve())
 
     @staticmethod
     def encode(sentence, terms, ignore_case=True):
@@ -177,7 +179,7 @@ class TermRecognizer(Pipe):
             if len(candidates) == 0:
                 break
             terms.update(candidates)
-            print(f"## Concept number: {len(terms)}")
+            print(f"term number: {len(terms)}")
             history.append(set(terms))
             
             # train_cands = self.term_validater.validate_sent_count(candidates)

@@ -99,10 +99,10 @@ class Preprocessor(Pipe):
                 continue
             cleaner = self.cleaner_factory[name]
             print("{} starts.".format(cleaner.NAME))
-            for path, html in tqdm(htmls, desc=f' - ({cleaner.NAME})', leave=False, ascii=True):
+            for source, html in tqdm(htmls, desc=f' - ({cleaner.NAME})', leave=False, ascii=True):
                 sents = cleaner.clean(html)
                 for sent in sents:
-                    sent = Sentence(sent, sources={str(Path(path).parts[1])})
+                    sent = Sentence(sent, sources={source})
                     if sent in sent2sent:
                         sent2sent[sent].sources.update(sent.sources)
                     else:

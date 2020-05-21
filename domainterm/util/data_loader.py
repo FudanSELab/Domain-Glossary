@@ -21,8 +21,8 @@ class DataLoader:
                         with Path(fn).open("r", encoding="utf-8") as f:
                             html = f.read().strip()
                         index = str(fn).find(dirname)
-                        short_fn = str(fn)[index:] if index > -1 else str(fn)
-                        htmls.append((doc_type, short_fn, html))
+                        source = str(fn)[index+1] if index > -1 else str(fn)[0]
+                        htmls.append((doc_type, source, html))
                     except Exception:
                         pass
         return htmls

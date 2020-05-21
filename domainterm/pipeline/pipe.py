@@ -9,7 +9,7 @@ class Pipe(metaclass=ABCMeta):
         self.name = name
     
     def __call__(self, *args, **kwagrs):
-        self.process(*args, **kwagrs)
+        return self.process(*args, **kwagrs)
 
     def with_name(self, name):
         self.name = name

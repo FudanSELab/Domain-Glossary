@@ -44,7 +44,7 @@ An example of HTML data format:
 There are three attributes for each code entry：
 
 - type: "java" or "python"
-- path: source code file path (note: start with the root (or its children) directory of a specific project, e.g., "torch/nn/.." instead of "xxx/data/code/torch/..")
+- path: source code file path (note: start with the root (or its children) directory of a specific project, e.g., "torch/nn/.." instead of "data/code/torch/nn/..")
 - content: code text
 
 ```

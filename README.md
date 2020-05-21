@@ -48,7 +48,7 @@ export PYTHONPATH=.
 python script/build_general_corpus.py
 ```
 
-## Step 5: Run Pipeline
+## Step 5: Run pipeline
 `python script/app.py`
 
 

@@ -13,7 +13,7 @@ Python 3.6.8
 3. copy glove.840B.300d.txt to resources/glove/glove.txt
 
 ### Step 3: Prepare corpora
-1. Prepare general technical corpus (HTML files) for computing `Generality(term)` (e.g., JDK and Python documentation)<br>
+1. Prepare general technical corpus for computing `Generality(term)` (e.g., HTML files from JDK and Python documentation)<br>
 2. Prepare domain-specific corpus (HTML and source code files) from different projects (e.g., DL4J, tensorflow and pytorch for deep learning domain)<br>
 3. Convert the data into the desired format:<br>
 There are three attributes for each HTML entry：
@@ -30,7 +30,7 @@ An example of HTML data format:
 ```
 There are three attributes for each code entry：
 - type: "java" or "python"
-- path: source code file path (note: start with the root (or its children) directory of a specific project, e.g., "torch/nn/.." instead of "xxx/data/code/torch/..")
+- path: source code file path (note: start with the root (or its children) directory of a specific project, e.g., "torch/nn/.." instead of "data/code/torch/nn/..")
 - content: code text
 ```
 An example of code data format:

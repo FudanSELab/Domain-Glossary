@@ -20,7 +20,7 @@ class DataLoader:
                     try:
                         with Path(fn).open("r", encoding="utf-8") as f:
                             html = f.read().strip()
-                        source = str(Path(dirname).parts[-1])
+                        source = str(Path(dirname).parts[-2])
                         htmls.append((doc_type, source, html))
                     except Exception:
                         pass

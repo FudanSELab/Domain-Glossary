@@ -17,7 +17,7 @@ class AliasSet:
         self.aliases = aliases if aliases else set()
     
     def add_alias(self, alias):
-        self.add_alias.add(alias)
+        self.aliases.add(alias)
 
     def __iter__(self):
         return iter(self.aliases)

@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import time
+from pathlib import Path
+import pickle
 
 from .pipeline import *
 from .option import Option
-from .util.saver import Saver
 
 PIPE_FACTORY = {
     "preprocessor": Preprocessor,
@@ -30,11 +31,14 @@ class App:
     def __call__(self, *data):
         self.process(*data)
 
-    def process(self, *data):
+    def process(self, *data, output=None):
         corpus = None
         for pipe in self.pipeline:
             print("{} start ({}).".format(pipe.name, time.asctime(time.localtime(time.time()))))
             corpus = pipe(*data)
             print("{} finish ({}).".format(pipe.name, time.asctime(time.localtime(time.time()))))
+            if output:
+                with (Path(output) / f"{pipe.name}.corpus").open("wb") as f:
+                    pickle.dump(corpus, f)
             data = (corpus, )
         return corpus

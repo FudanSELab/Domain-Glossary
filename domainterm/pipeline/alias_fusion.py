@@ -68,7 +68,7 @@ class AliasFusion(Pipe):
         # synonym_alias_sets = {tuple(sorted(aliases, key=lambda x: x)) for aliases in term2aliases.values()}
         return term2aliases
 
-    def merge_abbrs(self, abbr_pairs, term2aliases, sentences, threshold=0.5):
+    def merge_abbrs(self, abbr_pairs, vocab, term2aliases, sentences, threshold=0.5):
         abbr2full = {}
         for abbr, full in abbr_pairs:
             if abbr not in term2aliases:
@@ -106,7 +106,7 @@ class AliasFusion(Pipe):
             for term in aliases:
                 sents.update(term2sent[term])
             if len(sents) == 0:
-                emb = self.vocab.ZERO
+                emb = vocab.ZERO
             else:
                 emb = sum([sent.emb() for sent in sents]) / len(sents)
             for term in aliases:
@@ -146,7 +146,7 @@ class AliasFusion(Pipe):
         # print("syn: ", [(t1.text, t2.text) for t1, t2 in synonym_relations])
         # print("abbr:", [(t1.text, t2.text) for t1, t2 in abbr_pairs])
         term2aliases = self.merge_synonyms(synonym_pairs)
-        alias_sets = self.merge_abbrs(abbr_pairs, term2aliases, corpus.sentences)
+        alias_sets = self.merge_abbrs(abbr_pairs, corpus.vocab, term2aliases, corpus.sentences)
 
         visited = set()
         for alias_set in alias_sets:
